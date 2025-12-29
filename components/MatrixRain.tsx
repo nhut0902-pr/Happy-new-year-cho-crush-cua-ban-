@@ -22,35 +22,35 @@ export const MatrixRain: React.FC<MatrixRainProps> = ({
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    // Initial background clear
+    // Initial clear
     ctx.fillStyle = "#000000";
     ctx.fillRect(0, 0, width, height);
 
     const chars = "10".split(""); 
-    const fontSize = 14; 
-    const columnSpacing = 10; 
+    const fontSize = 15; 
+    const columnSpacing = 12; 
     let columns = Math.floor(width / columnSpacing);
 
     let drops: number[] = [];
     let speeds: number[] = [];
-    let opacities: number[] = [];
     
     const init = () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
       columns = Math.floor(width / columnSpacing);
       drops = [];
       speeds = [];
-      opacities = [];
       for (let i = 0; i < columns; i++) {
         drops[i] = Math.random() * -100; 
-        speeds[i] = (Math.random() * 2 + 1) * speed; 
-        opacities[i] = Math.random() * 0.5 + 0.5;
+        speeds[i] = (Math.random() * 1.5 + 0.5) * speed; 
       }
     };
 
     init();
 
     const draw = () => {
-      ctx.fillStyle = "rgba(0, 0, 0, 0.15)"; 
+      // Trail effect
+      ctx.fillStyle = "rgba(0, 0, 0, 0.18)"; 
       ctx.fillRect(0, 0, width, height);
 
       ctx.font = `bold ${fontSize}px 'DotGothic16', monospace`;
@@ -60,24 +60,20 @@ export const MatrixRain: React.FC<MatrixRainProps> = ({
         const x = i * columnSpacing;
         const y = drops[i] * fontSize;
 
-        // Draw tail
+        // Tail
         ctx.fillStyle = color;
-        ctx.globalAlpha = opacities[i] * 0.7;
         ctx.fillText(text, x, y);
 
-        // Draw head
+        // Leading head
         ctx.fillStyle = "#ffffff";
-        ctx.globalAlpha = 1.0;
         ctx.fillText(text, x, y + fontSize);
 
-        if (y * fontSize > height && Math.random() > 0.95) {
+        if (y * fontSize > height && Math.random() > 0.975) {
           drops[i] = -10;
-          speeds[i] = (Math.random() * 2 + 1) * speed;
         }
 
-        drops[i] += speeds[i] * 0.4; 
+        drops[i] += speeds[i]; 
       }
-      ctx.globalAlpha = 1.0;
     };
 
     let animationId: number;
@@ -89,8 +85,6 @@ export const MatrixRain: React.FC<MatrixRainProps> = ({
     animate();
 
     const handleResize = () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
       init();
     };
 
@@ -105,7 +99,8 @@ export const MatrixRain: React.FC<MatrixRainProps> = ({
   return (
     <canvas 
       ref={canvasRef} 
-      className="absolute inset-0 z-0 pointer-events-none bg-black"
+      className="absolute inset-0 z-0 pointer-events-none"
+      style={{ backgroundColor: '#000' }}
     />
   );
 };
