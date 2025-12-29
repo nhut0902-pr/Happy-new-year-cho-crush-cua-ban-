@@ -22,10 +22,13 @@ export const MatrixRain: React.FC<MatrixRainProps> = ({
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    // VIDEO RECREATION CONFIG
-    const chars = "10".split(""); // STRICTLY BINARY
-    const fontSize = 14; // Slightly larger to be visible but dense
-    const columnSpacing = 10; // Tight columns
+    // Initial background clear
+    ctx.fillStyle = "#000000";
+    ctx.fillRect(0, 0, width, height);
+
+    const chars = "10".split(""); 
+    const fontSize = 14; 
+    const columnSpacing = 10; 
     let columns = Math.floor(width / columnSpacing);
 
     let drops: number[] = [];
@@ -39,7 +42,6 @@ export const MatrixRain: React.FC<MatrixRainProps> = ({
       opacities = [];
       for (let i = 0; i < columns; i++) {
         drops[i] = Math.random() * -100; 
-        // varied speeds: some fast streams, some slower
         speeds[i] = (Math.random() * 2 + 1) * speed; 
         opacities[i] = Math.random() * 0.5 + 0.5;
       }
@@ -48,8 +50,7 @@ export const MatrixRain: React.FC<MatrixRainProps> = ({
     init();
 
     const draw = () => {
-      // Hard fade for distinct tails
-      ctx.fillStyle = "rgba(0, 0, 0, 0.1)"; 
+      ctx.fillStyle = "rgba(0, 0, 0, 0.15)"; 
       ctx.fillRect(0, 0, width, height);
 
       ctx.font = `bold ${fontSize}px 'DotGothic16', monospace`;
@@ -59,28 +60,22 @@ export const MatrixRain: React.FC<MatrixRainProps> = ({
         const x = i * columnSpacing;
         const y = drops[i] * fontSize;
 
-        // Visual logic:
-        // Head is bright white
-        // Tail is the color (pink)
-        
-        // Draw the tail character
+        // Draw tail
         ctx.fillStyle = color;
-        ctx.globalAlpha = opacities[i] * 0.8;
+        ctx.globalAlpha = opacities[i] * 0.7;
         ctx.fillText(text, x, y);
 
-        // Draw the leading head (brighter, sometimes sparkles)
-        // We draw it slightly below current pos to look like it's leading
+        // Draw head
         ctx.fillStyle = "#ffffff";
         ctx.globalAlpha = 1.0;
         ctx.fillText(text, x, y + fontSize);
 
-        // Reset
         if (y * fontSize > height && Math.random() > 0.95) {
-          drops[i] = -10; // Restart above screen
+          drops[i] = -10;
           speeds[i] = (Math.random() * 2 + 1) * speed;
         }
 
-        drops[i] += speeds[i] * 0.5; // Scale speed
+        drops[i] += speeds[i] * 0.4; 
       }
       ctx.globalAlpha = 1.0;
     };
@@ -110,7 +105,7 @@ export const MatrixRain: React.FC<MatrixRainProps> = ({
   return (
     <canvas 
       ref={canvasRef} 
-      className="absolute inset-0 z-0 pointer-events-none"
+      className="absolute inset-0 z-0 pointer-events-none bg-black"
     />
   );
 };

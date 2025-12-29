@@ -18,12 +18,22 @@ enum AppPhase {
 
 const App: React.FC = () => {
   const [phase, setPhase] = useState<AppPhase>(AppPhase.IDLE);
+  const [isReady, setIsReady] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    // Giả lập hệ thống load để người dùng thấy trang web đang chạy
+    const timer = setTimeout(() => setIsReady(true), 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const startExperience = () => {
     setPhase(AppPhase.COUNTDOWN_3);
     if (audioRef.current) {
-      audioRef.current.play().catch(e => console.log("Audio play failed:", e));
+      audioRef.current.volume = 0.8;
+      audioRef.current.play().catch(e => {
+        console.warn("Yêu cầu tương tác người dùng để phát nhạc:", e);
+      });
     }
   };
 
@@ -61,18 +71,17 @@ const App: React.FC = () => {
     };
   }, [phase]);
 
-  // Determine if fireworks should show
   const showFireworks = phase >= AppPhase.GREETING_NEW_YEAR;
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-black flex items-center justify-center">
-      {/* Assets: Music */}
-      <audio ref={audioRef} src="assets/music.mp3" loop />
+    <div className="relative w-screen h-screen overflow-hidden bg-black flex items-center justify-center font-['DotGothic16']">
+      {/* Assets: Music - Đảm bảo đường dẫn tương đối đúng cho Vercel */}
+      <audio ref={audioRef} src="assets/music.mp3" loop preload="auto" />
 
       {/* Background Matrix Effect */}
       <MatrixRain 
-        color={phase === AppPhase.IDLE ? "#333" : "#ff2e88"} 
-        speed={phase === AppPhase.IDLE ? 1 : 1.5}
+        color={phase === AppPhase.IDLE ? "#222" : "#ff2e88"} 
+        speed={phase === AppPhase.IDLE ? 0.5 : 1.5}
       />
 
       {/* Fireworks Effect Layer */}
@@ -80,14 +89,18 @@ const App: React.FC = () => {
 
       {/* Start Button Overlay */}
       {phase === AppPhase.IDLE && (
-        <div className="z-50 text-center animate-pulse">
+        <div className={`z-50 text-center transition-opacity duration-1000 ${isReady ? 'opacity-100' : 'opacity-0'}`}>
+          <div className="mb-6 space-y-2">
+            <p className="text-pink-500/40 text-xs animate-pulse">SYSTEM_READY: OK</p>
+            <p className="text-pink-500/40 text-xs animate-pulse" style={{animationDelay: '0.2s'}}>ASSETS_LOADED: OK</p>
+          </div>
           <button 
             onClick={startExperience}
-            className="px-8 py-4 bg-transparent border-2 border-pink-500 text-pink-500 rounded-full text-2xl font-bold tracking-widest hover:bg-pink-500 hover:text-white transition-all duration-300 transform hover:scale-110 shadow-[0_0_20px_rgba(255,46,136,0.5)]"
+            className="px-12 py-5 bg-transparent border-2 border-pink-500 text-pink-500 rounded-lg text-3xl font-bold tracking-[0.2em] hover:bg-pink-500 hover:text-white transition-all duration-500 transform hover:scale-105 shadow-[0_0_30px_rgba(255,46,136,0.3)] active:scale-95"
           >
-            BẮT ĐẦU
+            ENTER
           </button>
-          <p className="mt-4 text-pink-500/60 font-mono text-sm uppercase tracking-tighter">Click to unlock the experience</p>
+          <p className="mt-6 text-pink-500/60 text-sm uppercase tracking-widest animate-bounce">Nhấn để bắt đầu</p>
         </div>
       )}
 
@@ -97,9 +110,13 @@ const App: React.FC = () => {
       )}
 
       {/* Footer Branding */}
-      <div className="absolute bottom-4 right-4 z-50 text-pink-500/50 text-xs font-mono select-none flex flex-col items-end">
-        <span>00011010101 SYSTEM V3.0</span>
-        <span className="text-pink-400 font-bold mt-1">Powered By Nhutcoder</span>
+      <div className="absolute bottom-6 left-6 z-50 text-pink-500/30 text-[10px] font-mono select-none uppercase tracking-tighter">
+        <span>Vercel Build v3.0.1 - {new Date().getFullYear()}</span>
+      </div>
+      
+      <div className="absolute bottom-6 right-6 z-50 text-pink-500/50 text-xs font-mono select-none flex flex-col items-end">
+        <span className="opacity-50">00011010101 SYSTEM</span>
+        <span className="text-pink-400 font-bold mt-1 tracking-widest shadow-sm">Powered By Nhutcoder</span>
       </div>
     </div>
   );

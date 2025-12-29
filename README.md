@@ -1,34 +1,39 @@
 
-# HƯỚNG DẪN SỬ DỤNG - BINARY RAIN COUNTDOWN
+# HƯỚNG DẪN DEPLOY VERCEL - BINARY RAIN COUNTDOWN
 
-Chào bạn! Đây là bộ code được thiết kế để tạo hiệu ứng "Mưa số" (Matrix Rain) kết hợp Countdown New Year cực chất như trong video bạn yêu cầu.
+Để đảm bảo ứng dụng hoạt động 100% trên Vercel mà không bị lỗi "màn hình đen" hoặc "không có nhạc/ảnh", bạn cần lưu ý:
 
-## 1. Cấu trúc thư mục cần chuẩn bị:
-Để ứng dụng chạy hoàn hảo nhất, bạn cần tạo một thư mục tên là `assets` trong cùng cấp với các file code và thêm các file sau:
-- `assets/music.mp3`: File nhạc nền (nhạc New Year Remix hoặc bài bạn thích).
-- `assets/image.jpg`: Ảnh của người bạn muốn gửi lời chúc (sẽ hiện ở giữa màn hình).
+## 1. Thư mục `assets` quan trọng:
+Trên Vercel (và hầu hết các nền tảng deploy), thư mục chứa tài nguyên tĩnh của bạn phải nằm đúng vị trí. 
 
-## 2. Cách thay đổi thông tin:
+**Cấu trúc thư mục của bạn phải như sau:**
+```
+project-root/
+├── assets/
+│   ├── music.mp3
+│   └── image.jpg
+├── components/
+├── App.tsx
+├── index.html
+└── ... các file khác
+```
 
-### Thay Tên Crush:
-Mở file `components/OverlayContent.tsx`, tìm dòng số **52** (hoặc tìm chữ `TÊN CRUSH`).
-Thay chữ `TÊN CRUSH` thành tên người ấy của bạn. Ví dụ: `NGỌC TRINH`.
+*Lưu ý: Nếu bạn dùng công cụ build chuẩn, hãy đảm bảo thư mục `assets` được copy vào thư mục output (thường là `dist` hoặc `build`).*
 
-### Thay đổi lời chúc:
-Trong cùng file `components/OverlayContent.tsx`, bạn có thể sửa các nội dung trong thẻ `<p>` hoặc `<h1>`:
-- Lời khen: `XINH GÁI, DÁNG NGON` (Dòng 65).
-- Lời chúc cuối: `CHÚC EM TỪ NĂM NAY...` (Dòng 100).
+## 2. Khắc phục lỗi "Màn hình đen":
+Nếu khi mở link Vercel bạn chỉ thấy một nút "ENTER" trên nền đen:
+- Đây là **thiết kế mặc định (IDLE state)**. Bạn phải nhấn nút để hệ thống kích hoạt nhạc và hiệu ứng. Trình duyệt hiện nay cấm tự động phát nhạc khi chưa có tương tác từ người dùng.
+- Tôi đã thêm hiệu ứng "System Booting" ở góc trên nút bấm để bạn biết là trang web đã tải xong và đang chờ bạn nhấn.
 
-### Thay đổi màu sắc Matrix:
-Mở file `App.tsx`, tìm dòng số **82**:
-- Chỗ `color="#ff2e88"`: Đây là mã màu hồng neon. Bạn có thể thay bằng xanh lá `#00ff00` hoặc bất kỳ màu nào.
+## 3. Cách thay đổi thông tin:
+- Tên Crush: File `components/OverlayContent.tsx` -> Tìm chữ `TÊN CRUSH`.
+- Nhạc/Ảnh: Chỉ cần ghi đè file mới vào thư mục `assets/` với đúng tên `music.mp3` và `image.jpg`.
 
-## 3. Các hiệu ứng đặc biệt tích hợp sẵn:
-- **Matrix Rain**: Chỉ rơi 0 và 1, mật độ dày, tốc độ nhanh.
-- **Fireworks**: Pháo hoa tự động bắn khi đếm ngược xong.
-- **Heart Effect**: Trái tim đập (Pulse) ở màn hình cuối cùng.
-- **Glitch Text**: Chữ xuất hiện theo kiểu nhiễu sóng điện tử.
+## 4. Kiểm tra trên Vercel:
+Sau khi deploy, nếu ảnh không hiện: 
+- Nhấn F12 (Console) xem có lỗi `404 Not Found` cho file ảnh không.
+- Nếu có lỗi 404, nghĩa là bạn chưa upload thư mục `assets` hoặc sai vị trí thư mục.
 
 ---
 **Powered By Nhutcoder**
-Chúc bạn có một món quà tuyệt vời dành cho người ấy!
+Mọi thứ đã được tối ưu hóa cho môi trường Production (Vercel/Netlify).
