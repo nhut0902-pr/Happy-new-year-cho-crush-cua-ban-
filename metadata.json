@@ -1,0 +1,5 @@
+{
+  "name": "Binary Rain Countdown",
+  "description": "A high-performance Matrix-style falling binary digit animation with a cinematic countdown and custom messages, mimicking the visual style of the provided video.",
+  "requestFramePermissions": []
+}
