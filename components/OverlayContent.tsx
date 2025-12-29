@@ -28,7 +28,7 @@ export const OverlayContent: React.FC<OverlayContentProps> = ({ phase }) => {
         return <div key="1" className="text-[15rem] md:text-[25rem] matrix-text font-bold text-white animate-glitch-enter">1</div>;
       case AppPhase.GREETING_NEW_YEAR:
         return (
-          <div key="ny" className="text-center flex flex-col items-center justify-center h-full animate-in zoom-in duration-700">
+          <div key="ny" className="text-center flex flex-col items-center justify-center h-full animate-zoom-in">
             <h1 className="text-5xl md:text-8xl matrix-text text-white mb-8 tracking-wider animate-glitch-enter">Happy New</h1>
             <h1 className="text-6xl md:text-[10rem] matrix-text text-pink-500 leading-none glow-pink animate-pulse">Year 2026</h1>
           </div>
@@ -36,12 +36,10 @@ export const OverlayContent: React.FC<OverlayContentProps> = ({ phase }) => {
       case AppPhase.GREETING_NAME:
         return (
           <div key="name" className="text-center flex flex-col items-center animate-glitch-enter">
-            {/* Ảnh của Crush: Thay assets/image.jpg bằng ảnh thật của bạn */}
-            <div className="mb-8 relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-pink-500 shadow-[0_0_30px_#ff2e88] animate-bounce-slow">
+            <div className="mb-8 relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-pink-500 shadow-[0_0_30px_#ff2e88]">
                <img src="assets/image.jpg" alt="Crush" className="w-full h-full object-cover" onError={(e) => e.currentTarget.style.display = 'none'} />
             </div>
-            {/* THAY TÊN CRUSH Ở ĐÂY */}
-            <h1 className="text-5xl md:text-[10rem] matrix-text text-white tracking-widest uppercase text-center px-4">
+            <h1 className="text-5xl md:text-[10rem] matrix-text text-white tracking-widest uppercase text-center px-4 animate-zoom-in">
               TÊN CRUSH
             </h1>
           </div>
@@ -49,25 +47,24 @@ export const OverlayContent: React.FC<OverlayContentProps> = ({ phase }) => {
       case AppPhase.GREETING_COMPLIMENT:
         return (
           <div key="compliment" className="text-center flex flex-col gap-6 animate-slide-up">
-            <p className="text-4xl md:text-7xl matrix-text text-white glitch-text-effect">XINH GÁI,</p>
-            <p className="text-4xl md:text-7xl matrix-text text-white glitch-text-effect" style={{animationDelay: '0.2s'}}>DÁNG NGON,</p>
+            <p className="text-4xl md:text-7xl matrix-text text-white">XINH GÁI,</p>
+            <p className="text-4xl md:text-7xl matrix-text text-white" style={{animationDelay: '0.2s'}}>DÁNG NGON,</p>
             <p className="text-6xl md:text-[9rem] matrix-text text-pink-500 font-bold glow-pink animate-pulse" style={{animationDelay: '0.4s'}}>HPBA</p>
           </div>
         );
       case AppPhase.GREETING_LOVE:
         return (
-          <div key="love" className="text-center flex flex-col items-center justify-center gap-4 animate-in zoom-in duration-500">
-            <h1 className="text-5xl md:text-[8rem] matrix-text text-white tracking-wider dot-text animate-glitch-enter">ANH YÊU</h1>
-            <h1 className="text-5xl md:text-[8rem] matrix-text text-white tracking-wider dot-text animate-glitch-enter" style={{animationDelay: '0.2s'}}>EM NHIỀU</h1>
-            <h1 className="text-5xl md:text-[8rem] matrix-text text-pink-400 tracking-wider dot-text glow-pink animate-glitch-enter" style={{animationDelay: '0.4s'}}>NHIỀU</h1>
+          <div key="love" className="text-center flex flex-col items-center justify-center gap-4 animate-zoom-in">
+            <h1 className="text-5xl md:text-[8rem] matrix-text text-white tracking-wider animate-glitch-enter">ANH YÊU</h1>
+            <h1 className="text-5xl md:text-[8rem] matrix-text text-white tracking-wider animate-glitch-enter" style={{animationDelay: '0.2s'}}>EM NHIỀU</h1>
+            <h1 className="text-5xl md:text-[8rem] matrix-text text-pink-400 tracking-wider glow-pink animate-glitch-enter" style={{animationDelay: '0.4s'}}>NHIỀU</h1>
           </div>
         );
       case AppPhase.GREETING_FINAL:
         return (
-          <div key="final" className="relative w-full h-full flex items-center justify-center animate-in fade-in duration-1000">
-             {/* Trái tim Neon */}
+          <div key="final" className="relative w-full h-full flex items-center justify-center animate-fade-in">
              <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-               <svg viewBox="0 0 100 100" className="w-[90vw] h-[90vw] md:w-[60vh] md:h-[60vh] drop-shadow-[0_0_15px_rgba(255,46,136,0.8)] animate-pulse-heart">
+               <svg viewBox="0 0 100 100" className="w-[90vw] h-[90vw] md:w-[60vh] md:h-[60vh] animate-pulse-heart">
                   <path d="M50 88.9L16.7 55.6C7.2 46.1 7.2 30.9 16.7 21.4 26.2 11.9 41.4 11.9 50.9 21.4L50 22.3 49.1 21.4C58.6 11.9 73.8 11.9 83.3 21.4 92.8 30.9 92.8 46.1 83.3 55.6L50 88.9z" 
                         fill="none" 
                         stroke="#ff2e88" 
@@ -83,7 +80,7 @@ export const OverlayContent: React.FC<OverlayContentProps> = ({ phase }) => {
              </div>
              
             <div className="z-10 text-center space-y-4">
-              <h2 className="text-2xl md:text-4xl matrix-text text-white leading-relaxed max-w-4xl mx-auto animate-typewriter">
+              <h2 className="text-2xl md:text-4xl matrix-text text-white leading-relaxed max-w-4xl mx-auto animate-fade-in">
                 CHÚC EM TỪ NĂM NAY
                 <br />
                 MỌI THỨ ĐỀU

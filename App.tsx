@@ -25,7 +25,7 @@ const App: React.FC = () => {
     if (audioRef.current) {
       audioRef.current.volume = 0.8;
       audioRef.current.play().catch(e => {
-        console.warn("Yêu cầu tương tác người dùng để phát nhạc:", e);
+        console.warn("Audio interaction required:", e);
       });
     }
   };
@@ -71,29 +71,32 @@ const App: React.FC = () => {
       {/* Assets: Music */}
       <audio ref={audioRef} src="assets/music.mp3" loop preload="auto" />
 
-      {/* Background Matrix Effect - Use a clearly visible color even in IDLE */}
+      {/* Background Matrix Effect */}
       <MatrixRain 
-        color={phase === AppPhase.IDLE ? "rgba(255, 46, 136, 0.4)" : "#ff2e88"} 
-        speed={phase === AppPhase.IDLE ? 0.8 : 1.5}
+        color={phase === AppPhase.IDLE ? "rgba(255, 46, 136, 0.5)" : "#ff2e88"} 
+        speed={phase === AppPhase.IDLE ? 0.7 : 1.5}
       />
 
-      {/* Fireworks Effect Layer */}
+      {/* Fireworks Layer */}
       {showFireworks && <Fireworks />}
 
       {/* Start Button Overlay */}
       {phase === AppPhase.IDLE && (
-        <div className="z-50 text-center animate-in fade-in duration-700">
-          <div className="mb-6 space-y-2">
-            <p className="text-pink-500/60 text-xs font-mono tracking-tighter animate-pulse uppercase">System Online: True</p>
-            <p className="text-pink-500/60 text-xs font-mono tracking-tighter uppercase">00011010101_Core_Loaded</p>
+        <div className="z-50 text-center animate-fade-in">
+          <div className="mb-8 space-y-2">
+            <p className="text-pink-500/80 text-sm font-mono tracking-widest animate-pulse uppercase">00011010101_CORE_READY</p>
+            <p className="text-white/40 text-[10px] font-mono uppercase tracking-[0.5em]">System initialized</p>
           </div>
           <button 
             onClick={startExperience}
-            className="px-12 py-5 bg-transparent border-2 border-pink-500 text-pink-500 rounded-lg text-3xl font-bold tracking-[0.2em] hover:bg-pink-500 hover:text-white transition-all duration-500 transform hover:scale-105 shadow-[0_0_30px_rgba(255,46,136,0.3)] active:scale-95 cursor-pointer"
+            className="px-14 py-6 bg-transparent border-2 border-pink-500 text-pink-500 rounded-lg text-4xl font-bold tracking-[0.3em] hover:bg-pink-500 hover:text-white transition-all duration-500 transform hover:scale-105 active:scale-95 cursor-pointer shadow-[0_0_40px_rgba(255,46,136,0.4)]"
           >
             ENTER
           </button>
-          <p className="mt-6 text-pink-400 font-bold uppercase tracking-[0.3em] animate-bounce text-sm">Bấm để bắt đầu</p>
+          <div className="mt-8 flex flex-col items-center gap-2">
+            <p className="text-pink-400 font-bold uppercase tracking-[0.4em] animate-bounce text-sm">Bấm để bắt đầu</p>
+            <p className="text-white/20 text-[9px] font-mono">Requires audio interaction</p>
+          </div>
         </div>
       )}
 
@@ -104,12 +107,12 @@ const App: React.FC = () => {
 
       {/* Footer Branding */}
       <div className="absolute bottom-6 left-6 z-50 text-pink-500/20 text-[10px] font-mono select-none uppercase tracking-widest">
-        <span>Vercel Build v3.1.0</span>
+        <span>Vercel Build v3.2.0</span>
       </div>
       
       <div className="absolute bottom-6 right-6 z-50 text-pink-500/50 text-xs font-mono select-none flex flex-col items-end">
-        <span className="opacity-50">00011010101_V3</span>
-        <span className="text-pink-400 font-bold mt-1 tracking-widest uppercase">Powered By Nhutcoder</span>
+        <span className="opacity-40">SYSTEM_00011010101</span>
+        <span className="text-pink-400 font-bold mt-1 tracking-widest uppercase glow-pink">Powered By Nhutcoder</span>
       </div>
     </div>
   );
