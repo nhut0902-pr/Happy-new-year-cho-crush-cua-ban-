@@ -13,21 +13,27 @@
         --pink: #ff2e88;
       }
 
-      body {
+      * {
+        box-sizing: border-box;
+      }
+
+      html, body {
         margin: 0;
         padding: 0;
         background-color: #000 !important;
+        width: 100%;
+        height: 100%;
         overflow: hidden;
         font-family: 'DotGothic16', sans-serif;
-        color: white;
       }
 
       #root {
-        width: 100vw;
-        height: 100vh;
-        position: relative;
-        z-index: 10;
+        width: 100%;
+        height: 100%;
         background-color: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       .matrix-text {
@@ -35,54 +41,31 @@
       }
 
       .glow-pink {
-        text-shadow: 
-          0 0 5px var(--pink),
-          0 0 10px var(--pink),
-          0 0 20px var(--pink);
+        text-shadow: 0 0 5px var(--pink), 0 0 10px var(--pink), 0 0 20px var(--pink);
       }
 
-      /* Scanline overlay - moved to lower z-index than UI */
       .scanlines::after {
         content: "";
         position: absolute;
         top: 0; left: 0; bottom: 0; right: 0;
-        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+        background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
         z-index: 5;
         background-size: 100% 3px, 3px 100%;
         pointer-events: none;
         opacity: 0.5;
       }
 
-      /* Custom Animations */
-      @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
+      @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
       .animate-fade-in { animation: fadeIn 0.8s ease-out forwards; }
 
-      @keyframes zoomIn {
-        from { transform: scale(0.8); opacity: 0; }
-        to { transform: scale(1); opacity: 1; }
-      }
+      @keyframes zoomIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
       .animate-zoom-in { animation: zoomIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
 
-      @keyframes typewriter {
-        from { width: 0; }
-        to { width: 100%; }
+      @keyframes pulse-heart {
+        0%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px var(--pink)); }
+        50% { transform: scale(1.08); filter: drop-shadow(0 0 20px var(--pink)); }
       }
-      .animate-typewriter {
-        overflow: hidden;
-        white-space: nowrap;
-        margin: 0 auto;
-        animation: typewriter 2s steps(40, end);
-      }
-
-      @keyframes popIn {
-        0% { transform: scale(0); opacity: 0; }
-        70% { transform: scale(1.1); }
-        100% { transform: scale(1); opacity: 1; }
-      }
-      .animate-pop-in { animation: popIn 0.5s cubic-bezier(0.26, 0.53, 0.74, 1.48) forwards; }
+      .animate-pulse-heart { animation: pulse-heart 1.2s infinite ease-in-out; }
 
       @keyframes glitch-skew {
         0% { transform: skew(0deg); }
@@ -91,37 +74,22 @@
         100% { transform: skew(0deg); }
       }
       .animate-glitch-enter { animation: glitch-skew 0.4s ease-out both; }
-
-      @keyframes pulse-heart {
-        0%, 100% { transform: scale(1); filter: drop-shadow(0 0 5px var(--pink)); }
-        50% { transform: scale(1.08); filter: drop-shadow(0 0 20px var(--pink)); }
-      }
-      .animate-pulse-heart { animation: pulse-heart 1.2s infinite ease-in-out; }
-
-      @keyframes slideUp {
-        from { transform: translateY(30px); opacity: 0; }
-        to { transform: translateY(0); opacity: 1; }
-      }
-      .animate-slide-up { animation: slideUp 0.6s ease-out forwards; }
-
     </style>
-  <script type="importmap">
+    <script type="importmap">
 {
   "imports": {
     "react": "https://esm.sh/react@19.0.0",
     "react-dom": "https://esm.sh/react-dom@19.0.0",
     "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
-    "react/": "https://esm.sh/react@^19.2.3/",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/"
   }
 }
 </script>
-</head>
+  </head>
   <body class="scanlines">
-    <div id="root">
-      <div style="color: #ff2e88; text-align: center; padding-top: 45vh; font-family: 'DotGothic16', sans-serif; letter-spacing: 0.2em;">
-        INITIALIZING SYSTEM...
-      </div>
-    </div>
+    <div id="root"></div>
+    <!-- Load ứng dụng trực tiếp -->
+    <script type="module" src="index.tsx"></script>
   </body>
 </html>

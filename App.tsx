@@ -67,14 +67,14 @@ const App: React.FC = () => {
   const showFireworks = phase >= AppPhase.GREETING_NEW_YEAR;
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-black flex items-center justify-center">
+    <div className="relative w-full h-full overflow-hidden bg-black flex items-center justify-center">
       {/* Assets: Music */}
       <audio ref={audioRef} src="assets/music.mp3" loop preload="auto" />
 
       {/* Background Matrix Effect */}
       <MatrixRain 
-        color={phase === AppPhase.IDLE ? "rgba(255, 46, 136, 0.5)" : "#ff2e88"} 
-        speed={phase === AppPhase.IDLE ? 0.7 : 1.5}
+        color={phase === AppPhase.IDLE ? "rgba(255, 46, 136, 0.45)" : "#ff2e88"} 
+        speed={phase === AppPhase.IDLE ? 0.8 : 1.6}
       />
 
       {/* Fireworks Layer */}
@@ -84,18 +84,17 @@ const App: React.FC = () => {
       {phase === AppPhase.IDLE && (
         <div className="z-50 text-center animate-fade-in">
           <div className="mb-8 space-y-2">
-            <p className="text-pink-500/80 text-sm font-mono tracking-widest animate-pulse uppercase">00011010101_CORE_READY</p>
-            <p className="text-white/40 text-[10px] font-mono uppercase tracking-[0.5em]">System initialized</p>
+            <p className="text-pink-500/80 text-sm font-mono tracking-widest animate-pulse uppercase">CORE_SYSTEM_READY</p>
+            <p className="text-white/30 text-[9px] font-mono uppercase tracking-[0.4em]">Establishing link...</p>
           </div>
           <button 
             onClick={startExperience}
-            className="px-14 py-6 bg-transparent border-2 border-pink-500 text-pink-500 rounded-lg text-4xl font-bold tracking-[0.3em] hover:bg-pink-500 hover:text-white transition-all duration-500 transform hover:scale-105 active:scale-95 cursor-pointer shadow-[0_0_40px_rgba(255,46,136,0.4)]"
+            className="px-14 py-6 bg-transparent border-2 border-pink-500 text-pink-500 rounded-lg text-4xl font-bold tracking-[0.3em] hover:bg-pink-500 hover:text-white transition-all duration-500 transform hover:scale-105 active:scale-95 cursor-pointer shadow-[0_0_50px_rgba(255,46,136,0.3)]"
           >
             ENTER
           </button>
           <div className="mt-8 flex flex-col items-center gap-2">
-            <p className="text-pink-400 font-bold uppercase tracking-[0.4em] animate-bounce text-sm">Bấm để bắt đầu</p>
-            <p className="text-white/20 text-[9px] font-mono">Requires audio interaction</p>
+            <p className="text-pink-400 font-bold uppercase tracking-[0.4em] animate-bounce text-sm">Nhấn để bắt đầu</p>
           </div>
         </div>
       )}
@@ -107,12 +106,12 @@ const App: React.FC = () => {
 
       {/* Footer Branding */}
       <div className="absolute bottom-6 left-6 z-50 text-pink-500/20 text-[10px] font-mono select-none uppercase tracking-widest">
-        <span>Vercel Build v3.2.0</span>
+        <span>System V3.2 - Live</span>
       </div>
       
       <div className="absolute bottom-6 right-6 z-50 text-pink-500/50 text-xs font-mono select-none flex flex-col items-end">
-        <span className="opacity-40">SYSTEM_00011010101</span>
-        <span className="text-pink-400 font-bold mt-1 tracking-widest uppercase glow-pink">Powered By Nhutcoder</span>
+        <span className="opacity-40">00011010101</span>
+        <span className="text-pink-400 font-bold mt-1 tracking-widest uppercase">Powered By Nhutcoder</span>
       </div>
     </div>
   );
