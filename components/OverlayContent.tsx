@@ -37,10 +37,17 @@ export const OverlayContent: React.FC<OverlayContentProps> = ({ phase }) => {
         return (
           <div key="name" className="text-center flex flex-col items-center animate-glitch-enter">
             <div className="mb-8 relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-pink-500 shadow-[0_0_30px_#ff2e88]">
-               <img src="assets/image.jpg" alt="Crush" className="w-full h-full object-cover" onError={(e) => e.currentTarget.style.display = 'none'} />
+               <img 
+                 src="https://res.cloudinary.com/dyovozajb/image/upload/v1767240315/Screenshot_20260101_110338_TikTok_i6zwfa.jpg" 
+                 alt="Yến Nhi" 
+                 className="w-full h-full object-cover" 
+                 onError={(e) => {
+                   e.currentTarget.src = "https://via.placeholder.com/400?text=Yến+Nhi";
+                 }} 
+               />
             </div>
             <h1 className="text-5xl md:text-[10rem] matrix-text text-white tracking-widest uppercase text-center px-4 animate-zoom-in">
-              TÊN CRUSH
+              YẾN NHI
             </h1>
           </div>
         );
@@ -49,15 +56,15 @@ export const OverlayContent: React.FC<OverlayContentProps> = ({ phase }) => {
           <div key="compliment" className="text-center flex flex-col gap-6 animate-slide-up">
             <p className="text-4xl md:text-7xl matrix-text text-white">XINH GÁI,</p>
             <p className="text-4xl md:text-7xl matrix-text text-white" style={{animationDelay: '0.2s'}}>DÁNG NGON,</p>
-            <p className="text-6xl md:text-[9rem] matrix-text text-pink-500 font-bold glow-pink animate-pulse" style={{animationDelay: '0.4s'}}>HPBA</p>
+            <p className="text-6xl md:text-[9rem] matrix-text text-pink-500 font-bold glow-pink animate-pulse" style={{animationDelay: '0.4s'}}>HPNY</p>
           </div>
         );
       case AppPhase.GREETING_LOVE:
         return (
           <div key="love" className="text-center flex flex-col items-center justify-center gap-4 animate-zoom-in">
-            <h1 className="text-5xl md:text-[8rem] matrix-text text-white tracking-wider animate-glitch-enter">ANH YÊU</h1>
-            <h1 className="text-5xl md:text-[8rem] matrix-text text-white tracking-wider animate-glitch-enter" style={{animationDelay: '0.2s'}}>EM NHIỀU</h1>
-            <h1 className="text-5xl md:text-[8rem] matrix-text text-pink-400 tracking-wider glow-pink animate-glitch-enter" style={{animationDelay: '0.4s'}}>NHIỀU</h1>
+            <h1 className="text-5xl md:text-[8rem] matrix-text text-white tracking-wider animate-glitch-enter">VẠN SỰ</h1>
+            <h1 className="text-5xl md:text-[8rem] matrix-text text-white tracking-wider animate-glitch-enter" style={{animationDelay: '0.2s'}}>NHƯ Ý</h1>
+            <h1 className="text-5xl md:text-[8rem] matrix-text text-pink-400 tracking-wider glow-pink animate-glitch-enter" style={{animationDelay: '0.4s'}}>AN KHANG</h1>
           </div>
         );
       case AppPhase.GREETING_FINAL:
@@ -81,7 +88,7 @@ export const OverlayContent: React.FC<OverlayContentProps> = ({ phase }) => {
              
             <div className="z-10 text-center space-y-4">
               <h2 className="text-2xl md:text-4xl matrix-text text-white leading-relaxed max-w-4xl mx-auto animate-fade-in">
-                CHÚC EM TỪ NĂM NAY
+                CHÚC BẠN TỪ NĂM NAY
                 <br />
                 MỌI THỨ ĐỀU
               </h2>

@@ -74,6 +74,19 @@
         100% { transform: skew(0deg); }
       }
       .animate-glitch-enter { animation: glitch-skew 0.4s ease-out both; }
+
+      @keyframes slideUp {
+        from { transform: translateY(30px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+      .animate-slide-up { animation: slideUp 0.6s ease-out forwards; }
+
+      @keyframes popIn {
+        0% { transform: scale(0); opacity: 0; }
+        70% { transform: scale(1.1); }
+        100% { transform: scale(1); opacity: 1; }
+      }
+      .animate-pop-in { animation: popIn 0.5s cubic-bezier(0.26, 0.53, 0.74, 1.48) forwards; }
     </style>
     <script type="importmap">
 {
@@ -81,15 +94,14 @@
     "react": "https://esm.sh/react@19.0.0",
     "react-dom": "https://esm.sh/react-dom@19.0.0",
     "react-dom/client": "https://esm.sh/react-dom@19.0.0/client",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/"
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/"
   }
 }
 </script>
   </head>
   <body class="scanlines">
     <div id="root"></div>
-    <!-- Load ứng dụng trực tiếp -->
     <script type="module" src="index.tsx"></script>
   </body>
 </html>
