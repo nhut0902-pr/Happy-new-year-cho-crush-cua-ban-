@@ -68,8 +68,13 @@ const App: React.FC = () => {
 
   return (
     <div className="relative w-full h-full overflow-hidden bg-black flex items-center justify-center">
-      {/* Assets: Music */}
-      <audio ref={audioRef} src="assets/music.mp3" loop preload="auto" />
+      {/* Assets: Music from Cloudinary */}
+      <audio 
+        ref={audioRef} 
+        src="https://res.cloudinary.com/dyovozajb/video/upload/v1767240881/media_4_o5vlro.mp3" 
+        loop 
+        preload="auto" 
+      />
 
       {/* Background Matrix Effect */}
       <MatrixRain 
